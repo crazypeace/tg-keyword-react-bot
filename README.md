@@ -1,6 +1,14 @@
 # tg-keyword-react-bot
 电报telegram 关键字keyword 反应react 机器人bot
 
+# 演示
+v1 群里发消息  
+https://www.youtube.com/watch?v=rHrj9Mhmk8M
+
+
+v2 回复 或 私信  
+https://www.youtube.com/watch?v=YGe6hHSk48U
+
 # 申请 api_id, api_hash 
 
 https://my.telegram.org/apps
