@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Telegram关键词监控机器人
-监控指定频道的关键词，并在源群组中自动发送贴纸回复
+监控指定频道的关键词，并在源群组中自动发送贴纸
 """
 
 import re
@@ -86,7 +86,7 @@ class KeywordMonitorBot:
         return None, None
     
     async def send_sticker_to_source(self, channel_id, message_id):
-        """在源消息处发送贴纸作为回复"""
+        """在源消息处发送贴纸"""
         try:
             if not self.sticker_file_id:
                 logger.warning("贴纸未加载，尝试重新获取")
