@@ -47,3 +47,7 @@ python3 tg-keyword-react-bot.py
 
 # v2 回复 和 私信
 <img width="1210" height="408" alt="image" src="https://github.com/user-attachments/assets/45d4d504-6d05-4911-8041-49114e283c2a" />
+
+# v3 支持 文本
+
+# v4 记录互动过的用户
