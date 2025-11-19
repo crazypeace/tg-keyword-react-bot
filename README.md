@@ -51,3 +51,6 @@ python3 tg-keyword-react-bot.py
 # v3 支持 文本
 
 # v4 记录互动过的用户
+
+# v2.1 记录对群的互动时间
+
