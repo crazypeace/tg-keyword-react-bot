@@ -18,7 +18,8 @@ from telethon.extensions import markdown
 
 # 配置日志
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    level=logging.INFO
 )
 logger = logging.getLogger(__name__)
 
@@ -76,7 +77,8 @@ class KeywordMonitorBot:
         self.client = TelegramClient("session_" + PHONE, API_ID, API_HASH)
         self.sticker_cache = {}
         self.interacted_users = self.load_interacted_users()
-        self.last_trigger_time = 0
+        # 使用冷却结束时间，而不是最后触发时间
+        self.cooldown_until = 0
 
     # ---------------- 已互动用户持久化 ----------------
     def load_interacted_users(self):
@@ -372,9 +374,9 @@ class KeywordMonitorBot:
             
             # 检查冷却期
             current_time = time.time()
-            if current_time - self.last_trigger_time < cooldown_duration:
-                remaining = int(cooldown_duration - (current_time - self.last_trigger_time))
-                logger.info(f"处于冷却期 (剩余 {remaining}s)，跳过处理: {matches}")
+            if current_time < self.cooldown_until:
+                remaining = int(self.cooldown_until - current_time)
+                logger.info(f"处于冷却期 (剩余 {remaining}s，跳过处理: {matches}")
                 return
 
             info = self.parse_notification_message(msg)
@@ -399,9 +401,9 @@ class KeywordMonitorBot:
                 elif result == "skip":
                     logger.info(f"关键词 '{kw}' 被跳过，不进入冷却")
             
-            # 应用冷却
+            # 应用冷却 - 设置冷却结束时间
             if cooldown_duration > 0:
-                self.last_trigger_time = time.time()
+                self.cooldown_until = time.time() + cooldown_duration
                 logger.info(f"进入冷却期 ({cooldown_duration}秒，约{cooldown_duration/3600:.1f}小时)")
 
         await self.client.run_until_disconnected()
